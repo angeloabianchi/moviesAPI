@@ -1,0 +1,50 @@
+
+nav {
+    background-color: rgba(96, 192, 179, 0.9);
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navItems {
+    width: 100%;
+}
+
+.logoImage {
+    width: 220px;
+}
+
+.form {
+    display: flex;
+    gap: 15px;
+    width: -moz-available;
+}
+
+input {
+    flex: 1;        /* this make the input use all the space that has available. It won't overlap others components. */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 650px;
+}
+
+.submitButton {
+    background-color: #f9bc50;
+    height: 50px;
+    width: 120px;
+    border: none;
+    border-radius: 5px;
+    color: #FFF;
+    font-size: 1.7rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.socialMidiaIcon {
+    width: 50px;
+}

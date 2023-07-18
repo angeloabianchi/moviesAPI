@@ -3,8 +3,19 @@ import './Home.css';
 
 const Home = () => {
     return (
-        <div>
-            <p>This is the home page</p>
+        <div className="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Movie</th>
+                        <th>+Info</th>
+                    </tr>
+                    <tbody>
+
+                    </tbody>
+                </thead>
+            </table>
         </div>
     )
 }
