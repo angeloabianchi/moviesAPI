@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import './Movies.css';
-// import GetMovies from '../../Components/Requests/GetMovies';
-
 
 const Movies = () => {
+<<<<<<< HEAD
 
     const fetch = require('node-fetch');
 
@@ -16,7 +15,7 @@ const Movies = () => {
             method: 'GET',
             headers: {
                 accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjljM2YwMjllM2Y4NGRjYTY3ZmVlM2U1YzNmN2NlMCIsInN1YiI6IjY0YjZhMmUzYWM0MTYxMDBmZjIxZjhjZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YVq3uit-EzdsQ0Ot-fwHkvX03DUElXUuX2OpAu3R6vc'
+                Authorization: 'API KEY'
             }
         };
 
@@ -36,51 +35,45 @@ const Movies = () => {
     console.log('movies: ', movies);
 
 
-
-
     return (
         <div className="container">
-            {movies && movies.map((movie) => (
-                <div className="movieCard">
-                    <div className="poster">
-                        <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
+            <div className="page"></div>
+            <div>
+                {movies && movies.map((movie) => (
+                    <div className="movieCard">
+                        <div className="poster">
+                            <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
+                        </div>
+                        <div className="info">
+                            <div className="upperBar">
+                                <div><p className="releaseDate">{movie.release_date}</p></div>
+                                <div><p className="title" key={movie.id}>{movie.original_title}</p></div>
+                                <div className="vote">
+                                    <p className="average">{movie.vote_average}</p>
+                                    <p>({movie.vote_count} votes)</p>
+                                </div>
+                            </div>
+                            <div className="movieInfo">
+                                <p>{movie.overview}</p>
+                                <div className="pop">
+                                    <p>Popularity: {movie.popularity}</p>
+                                    <p>Original Movie Language: {movie.original_language}</p>
+                                </div>
+
+                            </div>
+                        </div>      
                     </div>
-                    <div className="info">
-                        <div className="upperBar">
-                            <div><p className="releaseDate">{movie.release_date}</p></div>
-                            <div><p className="title" key={movie.id}>{movie.original_title}</p></div>
-                            <div className="vote">
-                                <p className="average">{movie.vote_average}</p>
-                                <p>({movie.vote_count} votes)</p>
-                            </div>
-                        </div>
-                        <div className="movieInfo">
-                            <p>{movie.overview}</p>
-                            <div className="pop">
-                                <p>Popularity: {movie.popularity}</p>
-                                <p>Original Movie Language: {movie.original_language}</p>
-                            </div>
+                    
+                ))}
+            </div>
 
-                        </div>
-                    </div>      
-                </div>
-                
-            ))}
+=======
+    return (
+        <div>
+            <p>This is the MOVIES page</p>
+>>>>>>> parent of f814cdd (consuming and rendering the movie api)
         </div>
-
-
-
-
-
-
-
-
-/*         <div>
-            {movies && movies.map((movie) => (
-                <p key={movie.id}>{movie.original_title}</p>
-            ))}
-        </div> */
-    );
-};
+    )
+}
 
 export default Movies;
