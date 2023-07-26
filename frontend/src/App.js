@@ -26,8 +26,9 @@ const App = () => {
           <main>
             <Routes>
               {/* <Route path="/" exact ><Home /></Route> */}
-              <Route exact path="/" element={<Home/>} />
-              <Route path="/movies" render={props => <Movies/>}/>
+              <Route exact path="/" element={<Home />} />
+              <Route path="/movies" element={ <Movies />}/>
+              {/* <Route path="/movies" render={props => <Movies />}/> */}
               {/* <Navigate to="/" /> */}
             </Routes>
           </main>

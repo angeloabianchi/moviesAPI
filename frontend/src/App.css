@@ -10,8 +10,12 @@
 
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .Content {
-  
+  background-color: rgba(249, 188, 80, 0.9);
+  flex: 1;
 }
