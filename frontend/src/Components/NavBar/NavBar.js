@@ -8,7 +8,7 @@ import logo from '../../static/images/logo.png'
 const NavBar = () => {
     return (
         // <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-        <nav>
+        <div className='navBar'>
             <div className='navItems'>
                 <Link to="/" className="logo">
                     <img className='logoImage' src={logo} alt="github icon" />
@@ -30,7 +30,7 @@ const NavBar = () => {
                     <img className='socialMidiaIcon' src={github} alt="github icon" />
                 </a>
             </div>
-        </nav>
+        </div>
     );
 }
 
