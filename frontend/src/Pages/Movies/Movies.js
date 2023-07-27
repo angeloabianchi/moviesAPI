@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './Movies.css';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import ClipLoader from "react-spinners/ClipLoader";
 // import GetMovies from '../../Components/Requests/GetMovies';
 
 
@@ -11,6 +12,7 @@ const Movies = () => {
 
     const [movies, setMovies] = useState();
     const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
     const pageChange = (event, selectedPage) => {
         setPage(selectedPage);
@@ -29,17 +31,21 @@ const Movies = () => {
         return fetch(url, options)
         .then(res => res.json())
         .then(json => {
-            return setMovies(json.results);
+            
+            return setMovies(json.results) || setIsLoading(false);
         })
         .catch(err => console.error('error:' + err));
     }
     
     useEffect(() => {
-        fetchData();
+        setIsLoading(true);
+        setTimeout(() => {
+            fetchData();
+        }, 300);
     }, [page]);
 
 
-    console.log('movies: ', movies);
+    console.log('movies: ', isLoading);
 
 
     return (
@@ -49,6 +55,17 @@ const Movies = () => {
                     <Pagination count={500} page={page} onChange={pageChange} />
                 </Stack>
             </div>
+            {isLoading ? (
+                <div className="loadingIcon">                
+                    <ClipLoader
+                    loading={isLoading}
+                    size={150}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                    />
+                </div>
+            ) : (    
+            <>
             <div>
                 {movies && movies.map((movie) => (
                     <div className="movieCard">
@@ -70,11 +87,10 @@ const Movies = () => {
                                     <p>Popularity: {movie.popularity}</p>
                                     <p>Original Movie Language: {movie.original_language}</p>
                                 </div>
-
                             </div>
-                        </div>      
+                        </div>
                     </div>
-                    
+
                 ))}
             </div>
             <div className="pageInput">
@@ -82,7 +98,13 @@ const Movies = () => {
                     <Pagination count={500} defaultPage={1} page={page} onChange={pageChange} />
                 </Stack>
             </div>
-
+            </>
+            )}
+            <div className="pageInput">
+                <Stack spacing={2}>
+                    <Pagination count={500} page={page} onChange={pageChange} />
+                </Stack>
+            </div>
         </div>
 
 

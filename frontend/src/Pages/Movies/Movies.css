@@ -4,8 +4,14 @@
     flex-direction: column;
     border-radius: 5px;  
     background-color: rgba(16, 68, 42, 0);
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    min-height: 80vh;
+}
+
+.loadingIcon {
+    position: absolute;
+    top: 50vh;
 }
 
 .pageInput {
@@ -21,6 +27,8 @@
     display: flex;
     flex-direction: row;
     box-shadow: 3px 4px 10px -1px;
+    animation: card-animation 1s;
+    position: relative;
 }
 
 .poster {
@@ -87,4 +95,14 @@
 .pop {
     position: absolute;
     bottom: 50px;
+}
+
+@keyframes card-animation {
+    from {
+        right: -150%;
+    }
+
+    to {
+        right: 0%;
+    }
 }
