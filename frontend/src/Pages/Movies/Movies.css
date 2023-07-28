@@ -12,6 +12,7 @@
 .loadingIcon {
     position: absolute;
     top: 50vh;
+    animation: card-animation 1s;
 }
 
 .pageInput {

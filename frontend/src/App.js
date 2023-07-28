@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Home from './Pages/Home/Home';
 import Movies from './Pages/Movies/Movies';
@@ -13,12 +13,14 @@ import {
 
 const App = () => {
 
+  const [searchInput, setSearchInput] = useState('');
+
   return(
     <Router>
       <div className="App">
         <div className="App-header">
           <header>
-            <NavBar />
+            <NavBar onSubmit={setSearchInput}/>
           </header>
         </div>
         
@@ -27,7 +29,7 @@ const App = () => {
             <Routes>
               {/* <Route path="/" exact ><Home /></Route> */}
               <Route exact path="/" element={<Home/>} />
-              <Route exact path="/movies" element={<Movies/>} />
+              <Route exact path="/movies" element={<Movies searchInput={searchInput}/>} />
               {/* <Route path="/movies" render={props => <Movies/>}/> */}
               {/* <Navigate to="/" /> */}
             </Routes>

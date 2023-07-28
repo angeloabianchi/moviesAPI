@@ -6,7 +6,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 // import GetMovies from '../../Components/Requests/GetMovies';
 
 
-const Movies = () => {
+const Movies = ({ searchInput }) => {
 
     const fetch = require('node-fetch');
 
@@ -18,8 +18,17 @@ const Movies = () => {
         setPage(selectedPage);
     };
 
-    const fetchData = () => {
-        const url = `https://api.themoviedb.org/3/discover/movie?page=${page}`;
+    const fetchData = (page, input) => {
+        
+        let url = '';
+        
+        if (input === '') {
+            url = `https://api.themoviedb.org/3/discover/movie?page=${page}`;
+        }
+        else {
+            url = `https://api.themoviedb.org/3/search/movie?query=${input}&page=${page}`;
+        }
+
         const options = {
             method: 'GET',
             headers: {
@@ -40,12 +49,9 @@ const Movies = () => {
     useEffect(() => {
         setIsLoading(true);
         setTimeout(() => {
-            fetchData();
+            fetchData(page, searchInput);
         }, 300);
-    }, [page]);
-
-
-    console.log('movies: ', isLoading);
+    }, [page, searchInput]);
 
 
     return (
