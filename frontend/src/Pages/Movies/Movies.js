@@ -68,28 +68,36 @@ const Movies = () => {
             <>
             <div>
                 {movies && movies.map((movie) => (
-                    <div className="movieCard">
-                        <div className="poster">
-                            <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
-                        </div>
-                        <div className="info">
-                            <div className="upperBar">
-                                <div><p className="releaseDate">{movie.release_date}</p></div>
-                                <div><p className="title" key={movie.id}>{movie.title}</p></div>
-                                <div className="vote">
-                                    <p className="average">{movie.vote_average}</p>
-                                    <p>({movie.vote_count} votes)</p>
-                                </div>
+                    <div className="movie">
+                        <div className="movieCard">
+                            <div className="poster">
+                                <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
                             </div>
-                            <div className="movieInfo">
-                                <p>{movie.overview}</p>
-                                <div className="pop">
-                                    <p>Popularity: {movie.popularity}</p>
-                                    <p>Original Movie Language: {movie.original_language}</p>
+                            <div className="info">
+                                <div className="upperBar">
+                                    <div><p className="title" key={movie.id}>{movie.title}</p></div>
+                                    <div className="vote">
+                                        <p className="average">{movie.vote_average}</p>
+                                        <p>({movie.vote_count} votes)</p>
+                                    </div>
+                                </div>
+                                <div className="movieInfo">
+                                    <p>{movie.overview}</p>
+                                    <div className="pop">
+                                        <div>
+                                            <p>Popularity: {movie.popularity}</p>
+                                            <p>Original Movie Language: {movie.original_language}</p>
+                                        </div>
+                                        <div>
+                                            <p className="releaseDate">{movie.release_date}</p>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                 ))}
             </div>
@@ -100,11 +108,6 @@ const Movies = () => {
             </div>
             </>
             )}
-            <div className="pageInput">
-                <Stack spacing={2}>
-                    <Pagination count={500} page={page} onChange={pageChange} />
-                </Stack>
-            </div>
         </div>
 
 

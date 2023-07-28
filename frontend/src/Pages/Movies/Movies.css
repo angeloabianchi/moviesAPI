@@ -18,6 +18,20 @@
     margin-top: 20px;
 }
 
+.movie {
+    height: 400px;
+    width: 100%;
+    transition: height 0.5s;
+    transition-delay: 0.2s;
+}
+
+.movie:hover {
+    height: 800px;
+    transition: height 0.5s;
+    transition-delay: 0.2s;
+
+}
+
 .movieCard {
     border-radius: 10px;
     height: 400px;
@@ -27,9 +41,21 @@
     display: flex;
     flex-direction: row;
     box-shadow: 3px 4px 10px -1px;
-    animation: card-animation 1s;
     position: relative;
+    left: 0%;
+    animation: card-animation 3s;
+    transition: width 0.5s, height 0.5s, left 0.5s;
+    transition-delay: 0.2s;
 }
+
+.movie:hover > .movieCard {
+    width: 60%;
+    height: 800px;
+    animation: hover-card-animation 0.5s, card-animation 3s;
+    left: 20%;
+    transition: width 0.5s, height 0.5s;
+}
+
 
 .poster {
     margin-top: 15px;
@@ -54,9 +80,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-right: 20px;
-    margin-left: 20px;
-    height: auto;
+    margin-right: 50px;
+    margin-left: 50px;
+    height: 20%;
 }
 
 .releaseDate {
@@ -89,20 +115,33 @@
     flex-direction: column;
     text-align: justify;
     font-size: 1.5rem;
-    height: auto;
+    height: 80%;
+    justify-content: space-around;
 }
 
 .pop {
-    position: absolute;
-    bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
 }
 
 @keyframes card-animation {
     from {
-        right: -150%;
+        opacity: 0%;
     }
 
     to {
-        right: 0%;
+        opacity: 100%;
+    }
+}
+
+@keyframes hover-card-animation {
+    from {
+        left: 0%;
+    }
+
+    to {
+        left: 20%;
     }
 }
