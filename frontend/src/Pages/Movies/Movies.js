@@ -12,9 +12,18 @@ const Movies = ({ searchInput }) => {
 
     const [movies, setMovies] = useState();
     const [page, setPage] = useState(1);
+    const [maxPage, setMaxPage] = useState(500)
     const [isLoading, setIsLoading] = useState(true);
 
+    
+
     const pageChange = (event, selectedPage) => {
+        // if (movies == '') {
+        //     setPage(1);
+        // }
+        // else {
+        //     setPage(selectedPage);
+        // }
         setPage(selectedPage);
     };
 
@@ -41,26 +50,25 @@ const Movies = ({ searchInput }) => {
         .then(res => res.json())
         .then(json => {
             
-            return setMovies(json.results) || setIsLoading(false);
+            return setMovies(json.results) || setMaxPage(json.total_pages) || setIsLoading(false);
         })
         .catch(err => console.error('error:' + err));
     }
+
+    useEffect(() => {
+        setPage(1);
+    }, [searchInput]);
     
     useEffect(() => {
         setIsLoading(true);
         setTimeout(() => {
             fetchData(page, searchInput);
-        }, 300);
+        }, 1000);
     }, [page, searchInput]);
 
 
     return (
         <div className="container">
-            <div className="pageInput">
-                <Stack spacing={2}>
-                    <Pagination count={500} page={page} onChange={pageChange} />
-                </Stack>
-            </div>
             {isLoading ? (
                 <div className="loadingIcon">                
                     <ClipLoader
@@ -72,8 +80,13 @@ const Movies = ({ searchInput }) => {
                 </div>
             ) : (    
             <>
+            <div className="pageInput">
+                <Stack spacing={2}>
+                    <Pagination count={maxPage < 500 ? maxPage : 500} page={page} onChange={pageChange} />
+                </Stack>
+            </div>
             <div>
-                {movies && movies.map((movie) => (
+                {(movies) && (movies).map((movie) => (
                     <div className="movie">
                         <div className="movieCard">
                             <div className="poster">
@@ -83,7 +96,7 @@ const Movies = ({ searchInput }) => {
                                 <div className="upperBar">
                                     <div><p className="title" key={movie.id}>{movie.title}</p></div>
                                     <div className="vote">
-                                        <p className="average">{movie.vote_average}</p>
+                                        <p className="average">{movie.vote_average.toFixed(1)}</p>
                                         <p>({movie.vote_count} votes)</p>
                                     </div>
                                 </div>
@@ -103,31 +116,16 @@ const Movies = ({ searchInput }) => {
                             </div>
                         </div>
                     </div>
-
-
                 ))}
             </div>
             <div className="pageInput">
                 <Stack spacing={2}>
-                    <Pagination count={500} defaultPage={1} page={page} onChange={pageChange} />
+                    <Pagination count={maxPage < 500 ? maxPage : 500} page={page} onChange={pageChange} />
                 </Stack>
             </div>
             </>
             )}
         </div>
-
-
-
-
-
-
-
-
-/*         <div>
-            {movies && movies.map((movie) => (
-                <p key={movie.id}>{movie.original_title}</p>
-            ))}
-        </div> */
     );
 };
 

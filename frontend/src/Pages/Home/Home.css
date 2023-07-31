@@ -1,9 +1,32 @@
-.container {
-    display: block;
+.homeContainer {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
 }
 
-table {
+.homeItems {
     border-collapse: collapse;
-    width: 100%;
+    border: 1px solid #1f645b;
+    border-radius: 10px;
+    width: 30%;
+    height: 50%;
+    margin: 20px;
+    background-color: #6fc6ba;
+    transition: box-shadow 300ms;
 
+}
+
+.homeItems:hover {
+    box-shadow: 0px 4px 10px 5px;
+}
+
+.link {
+    width: auto;
+}
+
+.movieIconImage {
+    width: 84%;
 }
