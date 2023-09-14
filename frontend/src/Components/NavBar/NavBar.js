@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './NavBar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import github from '../../static/images/github.png';
 import logo from '../../static/images/logo.png'
 
 
-const NavBar = ({ onSubmit }) => {
+const NavBar = ({ searchInput, setSearchInput }) => {
 
     const [input, setInput] = useState('');
     const history = useNavigate();
@@ -16,9 +16,17 @@ const NavBar = ({ onSubmit }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(input);
+        setSearchInput(input);
         history('/movies');
     };
+
+      useEffect(() => {
+        if(searchInput !== '') {
+            setInput('');
+        }
+      }, [searchInput]);
+
+
 
     return (
         // <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>

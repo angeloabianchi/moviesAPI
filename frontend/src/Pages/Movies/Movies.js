@@ -3,10 +3,12 @@ import './Movies.css';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ClipLoader from "react-spinners/ClipLoader";
+import { Link } from 'react-router-dom';
+
 // import GetMovies from '../../Components/Requests/GetMovies';
 
 
-const Movies = ({ searchInput }) => {
+const Movies = ({ searchInput, setSearchInput }) => {
 
     const fetch = require('node-fetch');
 
@@ -18,8 +20,6 @@ const Movies = ({ searchInput }) => {
     const [popular, setPopular] = useState(false);
     const [buttonText, setButtonText] = useState('Top Rated Movies');
 
-
-    
 
     const pageChange = (event, selectedPage) => {
         // if (movies == '') {
@@ -45,6 +45,10 @@ const Movies = ({ searchInput }) => {
         }
     }
 
+    const backToMovies = () => {
+        setSearchInput('');
+    }
+
 
     const fetchData = (page, input) => {
         
@@ -54,24 +58,20 @@ const Movies = ({ searchInput }) => {
             if (topRated || popular) {
                 if (topRated) {
                     url = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`
-                    console.log('1 - topRated')
                     setButtonText('Popular Movies')
                 }
                 if (popular) {
                     url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`
-                    console.log('2 - popular')
                     setButtonText('Top Rated Movies')
                 }
             }
             else {
                 url = `https://api.themoviedb.org/3/discover/movie?page=${page}`;
-                console.log('3 - Link normal')
             }
 
         }
         else {
             url = `https://api.themoviedb.org/3/search/movie?query=${input}&page=${page}`;
-            console.log('4 - Input')
         }
 
         const options = {
@@ -105,63 +105,81 @@ const Movies = ({ searchInput }) => {
 
     return (
         <div className="container">
-            {isLoading ? (
-                <div className="loadingIcon">                
-                    <ClipLoader
-                    loading={isLoading}
-                    size={150}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                    />
-                </div>
-            ) : (    
-            <>
             <div className="pageInput">
                 <Stack spacing={2}>
-                    <Pagination count={maxPage < 500 ? maxPage : 500} page={page} onChange={pageChange} />
+                    <Pagination 
+                    count={maxPage < 500 ? maxPage : 500} 
+                    page={page} 
+                    onChange={pageChange} 
+                    />
                 </Stack>
-                <button onClick={() => inputButtons(buttonText)}>{buttonText}</button>
+                {!searchInput ? (
+                    <button className="topRated"onClick={() => inputButtons(buttonText)}>{buttonText}</button>
+                ) : (
+                    <button className="topRated"onClick={() => backToMovies()}>Back to movies</button>
+                )}
+                
             </div>
             <div>
-                {(movies) && (movies).map((movie) => (
-                    <div className="movie">
-                        <div className="movieCard" id={movie.id}>
-                            <div className="poster">
-                                <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
-                            </div>
-                            <div className="info">
-                                <div className="upperBar">
-                                    <div><p className="title" key={movie.id}>{movie.title}</p></div>
-                                    <div className="vote">
-                                        <p className="average">{movie.vote_average.toFixed(1)}</p>
-                                        <p>({movie.vote_count} votes)</p>
-                                    </div>
-                                </div>
-                                <div className="movieInfo">
-                                    <p>{movie.overview}</p>
-                                    <div className="pop">
-                                        <div>
-                                            <p>Popularity: {movie.popularity}</p>
-                                            <p>Original Movie Language: {movie.original_language}</p>
-                                        </div>
-                                        <div>
-                                            <p className="releaseDate">{movie.release_date}</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                {isLoading ? (
+                    <div className="loadingIcon">                
+                        <ClipLoader
+                        loading={isLoading}
+                        size={150}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        />
                     </div>
-                ))}
+                ) : (    
+                <>
+                <div>
+                    {(movies) && (movies).map((movie) => (
+                        <Link to={"/movie/" + movie.id}>
+                            <div className="movie">
+                                <div className="movieCard" id={movie.id}>
+                                    <div className="poster">
+                                        <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
+                                    </div>
+                                    <div className="info">
+                                        <div className="upperBar">
+                                            <div><p className="title" key={movie.id}>{movie.title}</p></div>
+                                            <div className="vote">
+                                                <p className="average">{movie.vote_average.toFixed(1)}</p>
+                                                <p>({movie.vote_count} votes)</p>
+                                            </div>
+                                        </div>
+                                        <div className="movieInfo">
+                                            <p>{movie.overview}</p>
+                                            <div className="pop">
+                                                <div>
+                                                    <p>Popularity: {movie.popularity}</p>
+                                                    <p>Original Movie Language: {movie.original_language}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="releaseDate">{movie.release_date}</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+                <div className="pageInput">
+                    <Stack spacing={2}>
+                        <Pagination 
+                        count={maxPage < 500 ? maxPage : 500} 
+                        page={page} 
+                        onChange={pageChange} 
+                        />
+                    </Stack>
+                </div>
+                </>
+                )}
             </div>
-            <div className="pageInput">
-                <Stack spacing={2}>
-                    <Pagination count={maxPage < 500 ? maxPage : 500} page={page} onChange={pageChange} />
-                </Stack>
-            </div>
-            </>
-            )}
+
         </div>
     );
 };
