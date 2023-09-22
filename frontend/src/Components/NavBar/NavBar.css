@@ -1,6 +1,7 @@
 
 .navBar {
-    background-color: rgba(96, 192, 179, 0.9);
+    /* background-color: rgba(96, 192, 179, 0.9); */
+    /* background-color: rgba(111, 198, 186, 0.6); */
     height: 200px;
     display: flex;
     flex-direction: row;
@@ -34,7 +35,7 @@ input {
 }
 
 .submitButton {
-    background-color: #f9bc50;
+    background-color: rgba(249, 188, 8, 0.7);
     height: 50px;
     width: 120px;
     border: none;
@@ -43,6 +44,13 @@ input {
     font-size: 1.7rem;
     font-weight: 500;
     cursor: pointer;
+    box-shadow: 0px 3px 1px -2px rgba(249, 188, 8, 0.2);
+    transition: background-color 250ms, box-shadow 250ms;
+}
+
+.submitButton:hover {
+    background-color: rgba(249, 188, 8, 0.9);
+    box-shadow: 0px 2px 4px -1px rgba(249, 188, 8, 1);
 }
 
 .socialMidiaIcon {

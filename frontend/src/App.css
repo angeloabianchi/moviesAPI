@@ -10,7 +10,9 @@
 
 .App {
   text-align: center;
-  background-color: #514c46fa;
+  background-image: url(static/images/fakeRaining.jpg);
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .Content {

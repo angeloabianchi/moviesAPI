@@ -4,6 +4,8 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 
 // import GetMovies from '../../Components/Requests/GetMovies';
 
@@ -19,6 +21,7 @@ const Movies = ({ searchInput, setSearchInput }) => {
     const [topRated, setTopRated] = useState(false);
     const [popular, setPopular] = useState(false);
     const [buttonText, setButtonText] = useState('Top Rated Movies');
+    const currentLocation = useLocation();
 
 
     const pageChange = (event, selectedPage) => {
@@ -107,10 +110,19 @@ const Movies = ({ searchInput, setSearchInput }) => {
         <div className="container">
             <div className="pageInput">
                 <Stack spacing={2}>
-                    <Pagination 
+                    <Pagination sx={{
+                            button: {
+                                color: 'white',
+                                fontSize: '1.2rem',
+                                fontFamily: 'VT323, monospace',
+                                backgroundColor: 'rgba(249,188,80, 0.5)',
+                                '&:hover': {
+                                    backgroundColor: 'rgba(249,188,80, 0.9)',
+                                }
+                            }}}
                     count={maxPage < 500 ? maxPage : 500} 
                     page={page} 
-                    onChange={pageChange} 
+                    onChange={pageChange}
                     />
                 </Stack>
                 {!searchInput ? (
@@ -120,7 +132,7 @@ const Movies = ({ searchInput, setSearchInput }) => {
                 )}
                 
             </div>
-            <div>
+            <div className="cardsZone">
                 {isLoading ? (
                     <div className="loadingIcon">                
                         <ClipLoader
@@ -128,39 +140,44 @@ const Movies = ({ searchInput, setSearchInput }) => {
                         size={150}
                         aria-label="Loading Spinner"
                         data-testid="loader"
+                        color='white'
                         />
                     </div>
                 ) : (    
                 <>
-                <div>
+                <div className="cards">
                     {(movies) && (movies).map((movie) => (
-                        <Link to={"/movie/" + movie.id}>
+                        <Link to={"/movie/" + movie.id} state={{ from: currentLocation }} className="link">
                             <div className="movie">
-                                <div className="movieCard" id={movie.id}>
-                                    <div className="poster">
+                                <div className="movieCard" id={movie.id} 
+                                style={{
+                                    backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.poster_path})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    opacity: '80%'
+                                    }}>
+                                    {/* <div className="poster">
                                         <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
-                                    </div>
+                                    </div> */}
                                     <div className="info">
                                         <div className="upperBar">
-                                            <div><p className="title" key={movie.id}>{movie.title}</p></div>
-                                            <div className="vote">
-                                                <p className="average">{movie.vote_average.toFixed(1)}</p>
-                                                <p>({movie.vote_count} votes)</p>
-                                            </div>
+                                            {/* <div><p className="title" key={movie.id}>{movie.title}</p></div> */}
+                                            <p className="rate">{movie.vote_average.toFixed(1)}</p>
+                                            <p className="votes">({movie.vote_count} votes)</p>
                                         </div>
-                                        <div className="movieInfo">
+                                        {/* <div className="movieInfo">
                                             <p>{movie.overview}</p>
                                             <div className="pop">
                                                 <div>
-                                                    <p>Popularity: {movie.popularity}</p>
-                                                    <p>Original Movie Language: {movie.original_language}</p>
+                                                    <p className="text">Popularity: {movie.popularity}</p>
+                                                    <p className="text">Original Movie Language: {movie.original_language}</p>
                                                 </div>
                                                 <div>
                                                     <p className="releaseDate">{movie.release_date}</p>
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

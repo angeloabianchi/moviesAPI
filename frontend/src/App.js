@@ -7,7 +7,6 @@ import Details from './Pages/Details/Details';
 import {
   BrowserRouter as Router,
   Route,
-  Navigate,
   Routes
 } from 'react-router-dom';
 

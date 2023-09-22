@@ -3,8 +3,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 5px;  
-    background-color: rgba(16, 68, 42, 0);
-    justify-content: space-between;
+/*     background-color: rgba(16, 68, 42, 0); */
     align-items: center;
     min-height: 80vh;
 }
@@ -20,10 +19,24 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
+}
+
+.cardsZone {
+
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .topRated {
-    background-color: #f9bc50;
+    width: 165px;
+    background-color: rgba(249, 188, 8, 0.7);
     color: white;
     box-sizing: border-box;
     border: 0;
@@ -33,48 +46,51 @@
     text-transform: uppercase;
     padding: 6px 16px;
     border-radius: 4px;
-    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+    box-shadow: 0px 3px 1px -2px rgba(249, 188, 8, 0.2);
     text-decoration: none;
     transition: background-color 250ms, box-shadow 250ms;
 }
 
 .topRated:hover {
-    background-color: #b78b3e;
+    background-color: rgba(249, 188, 8, 0.9);
     text-decoration: none;
-    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+    box-shadow: 0px 2px 4px -1px rgba(249, 188, 8, 1)
+}
 
+.link {
+    text-decoration: none;
+    width: 27%;
+    margin: 30px 30px 30px 30px;
 }
 
 .movie {
-    height: 400px;
+    height: 550px;
     width: 100%;
     transition: height 0.5s, width 0.5s;
-    /* transition-delay: 0.2s; */
     position: relative;
-    animation: card-animation 3s, hover-card-animation-out 0.5s;
+    animation: card-animation 3s;
 }
 
-/* .movie:hover {
-    width: 110%;
-    height: 90vh;
-    top: -2%;
-    left: -5%;
-    animation: hover-card-animation-in 0.5s;
-    transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
-} */
+.movie:hover .movieCard {
+    transform: translateY(0) scale(1.04);
+    background-color: rgba(111, 198, 186, 0.9);
+    transition-delay: 150ms;
+} 
 
 .movieCard {
     border-radius: 10px;
-    height: 400px;
+    height: 550px;
     width: 100%;
     margin-top: 20px;
-    background-color: #6fc6ba;
+    background-color: rgba(111, 198, 186, 0.6);
     display: flex;
     flex-direction: row;
-    box-shadow: 3px 4px 10px -1px;
-    transition: height 0.5s, width 0.5s;
-    transition-delay: 0.2s;
+    box-shadow: 0px -4px 10px 2px rgba(249, 188, 8, 1);
+    transition: height 0.5s, width 0.5s, transform 0.5s cubic-bezier(0.4, 0, 0.2, 0.8), background-color 300ms;
+
 }
+
+
 
 /* .movie:hover > .movieCard {
     width: 100%;
@@ -82,6 +98,7 @@
     margin-top: 0px;
     box-shadow: 10px 4px 20px -8px;
     transition: width 0.5s, height 0.5s, margin-top 0.5s, box-shadow 0.5s;
+    transform: translateY(0) scale(1.2);
 } */
 
 .poster {
@@ -97,7 +114,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 30px;
-    width: 100%;
+    width: 45%;
     color: white;
     position: relative;
     height: auto;
@@ -105,33 +122,36 @@
 
 .upperBar {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-right: 50px;
-    margin-left: 50px;
-    height: 20%;
+    flex-direction: column;
+    margin-right: 30px;
+    margin-left: 30px;
+    align-items: center;
 }
 
 .releaseDate {
     font-size: 1.2rem;
     border: 1px solid rgba(16, 68, 42, 0.5);
     border-radius: 5px;
-    background-color: brown;
+    background-color: rgba(165, 42, 42, 0.3);
 }
 
 .title {
     font-size: 2.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
-.vote {
-
+.votes {
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: 1.2rem;
+    width: fit-content;
 }
 
-.average {
+.rate {
     font-size: 1.8rem;
     border: 1px solid rgba(16, 68, 42, 0.5);
     border-radius: 5px;
     background-color: brown;
+    width: 60px;
 }
 
 .movieInfo {
@@ -143,14 +163,20 @@
     text-align: justify;
     font-size: 1.5rem;
     height: 80%;
-    justify-content: space-around;
+    justify-content: flex-end;
+    margin-bottom: 20px;
 }
 
 .pop {
     display: flex;
     flex-direction: row;
-    align-items: end;
+    align-items: flex-end;
     justify-content: space-between;
+}
+
+.text {
+    width: fit-content;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 @keyframes card-animation {

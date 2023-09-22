@@ -6,21 +6,27 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 const Details = () => {
 
     const fetch = require('node-fetch');
-
     const { id } = useParams();
     const movieId =  id;
-
     const [movies, setMovies] = useState('');
 
-    console.log('movieId - ' + movieId)
+    const location = useLocation();
+    const navigate = useNavigate();
+  
+    const goBack = () => {
+      // Use the navigate function with the location state to go back to the previous page
+      if (location.state && location.state.from) {
+        navigate(location.state.from);
+      } else {
+        // If there's no specific "from" location, go back to the home page or a default route
+        navigate('/movies');
+      }
+    };
 
 
     const fetchData = (movieId) => {
-
-        window.scrollTo(0, 0);
-        
+        /* window.scrollTo(0, 0); */
         let url = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
-
         const options = {
             method: 'GET',
             headers: {
@@ -39,7 +45,6 @@ const Details = () => {
     }
 
 
-
     useEffect(() => {
         setTimeout(() => {
             fetchData(movieId);
@@ -47,13 +52,9 @@ const Details = () => {
     }, [movieId]);
 
 
-
-    console.log('movies - ' + movies)
-
-
-
     return (
-        <div> aaaaaaaaaaaaaaaaaaaaaaaaaaa
+        <div>
+            <button className="topRated" onClick={goBack}>Go Back</button>
             <div>{movies.original_title}</div>
         </div>
         
