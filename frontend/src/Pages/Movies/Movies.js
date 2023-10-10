@@ -3,107 +3,93 @@ import './Movies.css';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ClipLoader from "react-spinners/ClipLoader";
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-
-
-// import GetMovies from '../../Components/Requests/GetMovies';
+import { Link, useLocation } from 'react-router-dom';
+import { fetchData } from "../../Components/FetchFunctions/fetchs";
 
 
 const Movies = ({ searchInput, setSearchInput }) => {
 
-    const fetch = require('node-fetch');
-
     const [movies, setMovies] = useState();
-    const [page, setPage] = useState(1);
     const [maxPage, setMaxPage] = useState(500)
     const [isLoading, setIsLoading] = useState(true);
     const [topRated, setTopRated] = useState(false);
-    const [popular, setPopular] = useState(false);
-    const [buttonText, setButtonText] = useState('Top Rated Movies');
     const currentLocation = useLocation();
+
+    const [oldInput, setOldInput] = useState(() => {
+        if (currentLocation.state.oldInput) {
+            return currentLocation.state.oldInput
+        }
+        else {
+            return '';
+        }
+    });
+
+    const [page, setPage] = useState(() => {
+        if (currentLocation.state.page) {
+            return currentLocation.state.page;
+        }
+        else {
+            return 1;
+        }
+    });
+
+    const [apiRequest, setApiRequest] = useState(() => {
+        if (currentLocation.state.apiRequest) {
+            return currentLocation.state.apiRequest;
+        }
+        else {
+            return 'popular';
+        }
+    });
 
 
     const pageChange = (event, selectedPage) => {
-        // if (movies == '') {
-        //     setPage(1);
-        // }
-        // else {
-        //     setPage(selectedPage);
-        // }
         setPage(selectedPage);
     };
 
+
     const inputButtons = buttonAction => {
-        if (buttonAction === 'Top Rated Movies') {
+        if (buttonAction === 'top_rated') {
             setTopRated(true);
-            setPopular(false);
             setPage(1);
+            setApiRequest('popular');
         }
         
-        if (buttonAction === 'Popular Movies') {
-            setPopular(true);
+        if (buttonAction === 'popular') {
             setTopRated(false);
             setPage(1);
+            setApiRequest('top_rated');
         }
     }
+
 
     const backToMovies = () => {
         setSearchInput('');
-    }
-
-
-    const fetchData = (page, input) => {
-        
-        let url = '';
-        
-        if (input === '') {
-            if (topRated || popular) {
-                if (topRated) {
-                    url = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`
-                    setButtonText('Popular Movies')
-                }
-                if (popular) {
-                    url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`
-                    setButtonText('Top Rated Movies')
-                }
-            }
-            else {
-                url = `https://api.themoviedb.org/3/discover/movie?page=${page}`;
-            }
-
-        }
-        else {
-            url = `https://api.themoviedb.org/3/search/movie?query=${input}&page=${page}`;
-        }
-
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjljM2YwMjllM2Y4NGRjYTY3ZmVlM2U1YzNmN2NlMCIsInN1YiI6IjY0YjZhMmUzYWM0MTYxMDBmZjIxZjhjZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YVq3uit-EzdsQ0Ot-fwHkvX03DUElXUuX2OpAu3R6vc'
-            }
-        };
-
-        return fetch(url, options)
-        .then(res => res.json())
-        .then(json => {
-            
-            return setMovies(json.results) || setMaxPage(json.total_pages) || setIsLoading(false);
-        })
-        .catch(err => console.error('error:' + err));
-    }
-
-    useEffect(() => {
+        setApiRequest('popular');
         setPage(1);
-    }, [searchInput]);
+    }
     
-    useEffect(() => {
+    
+    useEffect( () => {
+        setMovies('');
         setIsLoading(true);
-        setTimeout(() => {
-            fetchData(page, searchInput);
+        if(searchInput) {
+            setApiRequest('search');
+            if (searchInput !== oldInput) {
+                setOldInput(searchInput);
+                setPage(1);
+            }
+        }
+
+        setTimeout( async () => {
+            const {results: data, total_pages: totalPages} = await (fetchData(apiRequest, {page: page, input: searchInput}));
+            setMovies(data);
+            setMaxPage(totalPages);
+            setIsLoading(false);
         }, 1000);
-    }, [page, searchInput, topRated, popular]);
+
+    }, [page, searchInput, topRated, apiRequest]);
+
 
 
     return (
@@ -126,7 +112,7 @@ const Movies = ({ searchInput, setSearchInput }) => {
                     />
                 </Stack>
                 {!searchInput ? (
-                    <button className="topRated"onClick={() => inputButtons(buttonText)}>{buttonText}</button>
+                    <button className="topRated"onClick={() => inputButtons(apiRequest)}>{apiRequest}</button>
                 ) : (
                     <button className="topRated"onClick={() => backToMovies()}>Back to movies</button>
                 )}
@@ -147,7 +133,7 @@ const Movies = ({ searchInput, setSearchInput }) => {
                 <>
                 <div className="cards">
                     {(movies) && (movies).map((movie) => (
-                        <Link to={"/movie/" + movie.id} state={{ from: currentLocation }} className="link">
+                        <Link to={"/movie/" + movie.id} state={{ from: currentLocation.pathname, page: page, apiRequest: apiRequest, oldInput: oldInput }} className="link">
                             <div className="movie">
                                 <div className="movieCard" id={movie.id} 
                                 style={{
@@ -156,28 +142,11 @@ const Movies = ({ searchInput, setSearchInput }) => {
                                     backgroundPosition: 'center',
                                     opacity: '80%'
                                     }}>
-                                    {/* <div className="poster">
-                                        <img className="posterImg" src={`https://image.tmdb.org/t/p/original` + movie.poster_path} />
-                                    </div> */}
                                     <div className="info">
                                         <div className="upperBar">
-                                            {/* <div><p className="title" key={movie.id}>{movie.title}</p></div> */}
                                             <p className="rate">{movie.vote_average.toFixed(1)}</p>
                                             <p className="votes">({movie.vote_count} votes)</p>
                                         </div>
-                                        {/* <div className="movieInfo">
-                                            <p>{movie.overview}</p>
-                                            <div className="pop">
-                                                <div>
-                                                    <p className="text">Popularity: {movie.popularity}</p>
-                                                    <p className="text">Original Movie Language: {movie.original_language}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="releaseDate">{movie.release_date}</p>
-                                                </div>
-
-                                            </div>
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>

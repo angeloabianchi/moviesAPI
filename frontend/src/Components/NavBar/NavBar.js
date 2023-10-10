@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './NavBar.css';
-import { Link, useNavigate } from 'react-router-dom';
-import github from '../../static/images/github.png';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import account from '../../static/images/account.png';
 import logo from '../../static/images/logo.png'
 
 
 const NavBar = ({ searchInput, setSearchInput }) => {
 
     const [input, setInput] = useState('');
-    const history = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
+
 
     const handleInputChange = (event) => {
         setInput(event.target.value);
@@ -17,11 +19,15 @@ const NavBar = ({ searchInput, setSearchInput }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         setSearchInput(input);
-        history('/movies');
+        navigate('/movies', { state: { from: location.pathname, page: location.state.page } } );
     };
 
+    const cleanInput = () => {
+        setSearchInput('');
+    }
+
       useEffect(() => {
-        if(searchInput !== '') {
+        if(searchInput) {
             setInput('');
         }
       }, [searchInput]);
@@ -32,8 +38,8 @@ const NavBar = ({ searchInput, setSearchInput }) => {
         // <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
         <div className='navBar'>
             <div className='navItems'>
-                <Link to="/" className="logo">
-                    <img className='logoImage' src={logo} alt="github icon" />
+                <Link to="/" className="logo" onClick={cleanInput}>
+                    <img className='logoImage' src={logo} alt="logo icon" />
                 </Link>
             </div>
             <div className='navItems'>
@@ -46,8 +52,8 @@ const NavBar = ({ searchInput, setSearchInput }) => {
                 </form>
             </div>
             <div className="navItems">
-                <a href="https://github.com/angeloabianchi">
-                    <img className='socialMidiaIcon' src={github} alt="github icon" />
+                <a href="#">
+                    <span className='login'>Log In</span>
                 </a>
             </div>
         </div>

@@ -1,0 +1,42 @@
+.heroSectionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.detailsHeroTitle {
+    color: #edddca;
+    font-family: 'Rubik Dirt', cursive;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    align-items: center;
+}
+
+.detailsHeroSection {
+    display: flex;
+    flex-direction: row;
+    min-height: 60vh;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid rgb(249, 188, 8);
+    transition: box-shadow 500ms;
+}
+
+.detailsHeroSection:hover {
+    box-shadow: 0px 0px 25px 2px rgb(249, 188, 8);
+}
+
+.heroOverview {
+    color: #edddca;
+    font-size: 2.5rem;
+    text-align: justify;
+    text-align: center;
+    transition: background-color 1s, opacity 1s;
+    opacity: 30%;
+}
+
+.detailsHeroSection:hover > .heroOverview {
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 100%;
+}

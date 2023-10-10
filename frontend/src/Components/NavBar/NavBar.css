@@ -13,6 +13,10 @@
     width: 100%;
 }
 
+.navItems #a {
+    text-decoration: none;
+}
+
 .logoImage {
     width: 220px;
 }
@@ -53,6 +57,18 @@ input {
     box-shadow: 0px 2px 4px -1px rgba(249, 188, 8, 1);
 }
 
-.socialMidiaIcon {
-    width: 50px;
+.login {
+    font-size: 1.5rem;
+    color: #edddca;
+    font-weight: bold;
+    transition:font-size 250ms, box-shadow 250ms;
+}
+
+.login:hover {
+    font-size: 1.7rem;
+    box-shadow: 0px 2px 4px -1px rgba(249, 188, 8, 1);
+}
+
+a {
+    text-decoration: none;
 }
