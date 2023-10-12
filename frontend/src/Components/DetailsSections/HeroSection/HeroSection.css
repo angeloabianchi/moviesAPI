@@ -5,38 +5,138 @@
     margin-top: 20px;
 }
 
-.detailsHeroTitle {
+.detailsHeroTitleZone {
     color: #edddca;
-    font-family: 'Rubik Dirt', cursive;
     margin-bottom: 20px;
     font-size: 2.5rem;
     align-items: center;
 }
 
+/* .detailsHeroTitleZone div {
+    background-color: rgba(0, 0, 0, 0.5);
+} */
+
 .detailsHeroSection {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     min-height: 60vh;
-    align-items: center;
+    align-items: flex-start;
     border-radius: 10px;
     border: 1px solid rgb(249, 188, 8);
     transition: box-shadow 500ms;
+    padding: 50px;
+    justify-content: space-around;
 }
 
 .detailsHeroSection:hover {
     box-shadow: 0px 0px 25px 2px rgb(249, 188, 8);
 }
 
-.heroOverview {
+.heroOverviewZone {
     color: #edddca;
     font-size: 2.5rem;
-    text-align: justify;
-    text-align: center;
-    transition: background-color 1s, opacity 1s;
-    opacity: 30%;
+    text-align: initial;
 }
 
-.detailsHeroSection:hover > .heroOverview {
+.heroOverviewZone div {
+    width: fit-content;
+    opacity: 30%;
+    transition: background-color 1s, opacity 1s;
+}
+
+.heroOverview {
+    font-size: 2rem;
+}
+
+.detailsHeroSection:hover > .heroOverviewZone div {
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 100%;
+}
+
+
+
+.detailsHeroTitle {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.movieTitle {
+    font-family: 'Rubik Dirt', cursive;
+}
+
+.movieDetails {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.7rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: fit-content;
+}
+
+.certificationInfo {
+    margin-right: 15px;
+}
+
+.certification {
+    border: 1px solid #edddca;
+    padding: 0px 3px 0px 3px;
+}
+
+.genresSection {
+    display: flex;
+    flex-direction: row;
+}
+
+.genresSection p {
+    margin-right: 15px;
+}
+
+.genresSection p span {
+    margin-right: 15px;
+}
+
+.heroFooterZone {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heroFooterZone div {
+    opacity: 30%;
+    transition: opacity 1s;
+}
+
+.heroStreamingZone {
+
+}
+
+.channelLinks {
+    display: flex;
+    flex-direction: row;
+}
+
+.streamingCard {
+    padding-right: 5px;
+}
+
+.heroCredits p {
+    color: #edddca;
+    text-align: initial;
+    transition: background-color 1s, opacity 1s;
+}
+
+.heroDirector {
+    font-size: 1.5rem;
+}
+
+
+.detailsHeroSection:hover > .heroFooterZone div {
+    opacity: 100%;
+}
+
+.detailsHeroSection:hover > .heroCredits p {
+    background-color: rgba(0, 0, 0, 0.5);
 }
