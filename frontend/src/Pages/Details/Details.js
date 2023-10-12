@@ -12,12 +12,13 @@ const Details = () => {
     const movieId =  id;
     const location = useLocation();
     const navigate = useNavigate();
-    const fetch = require('node-fetch');
     const [movie, setMovie] = useState('');
-    const apiRequest = 'movie';
+    const [credits, setCredits] = useState('');
+    const [videos, setVideos] = useState('');
+    const [releaseDates, setReleaseDates] = useState('');
+    const [streamings, setStreamings] = useState('');
+    const apiRequest = ['movie', 'credits', 'videos', 'release_dates', 'watch'];
 
-    console.log('details');
-    console.log(location);
   
     const goBack = () => {
       // Use the navigate function with the location state to go back to the previous page
@@ -31,21 +32,37 @@ const Details = () => {
     };
 
 
-  useEffect( () => {
-    const getData = async () => {
-      const data = await (fetchData(apiRequest, {id: movieId}));
-      setMovie(data);
-    }
+    useEffect(() => {
+      const getData = async () => {
+        for (const apiType of apiRequest) {
+          try {
+            const data = await fetchData(apiType, { id: movieId });
+            if (apiType === 'movie') {
+              setMovie(data);
+            } else if (apiType === 'credits') {
+              setCredits(data);
+            } else if (apiType === 'videos') {
+              setVideos(data);
+            } else if (apiType === 'release_dates') {
+              setReleaseDates(data);
+            } else if (apiType === 'watch') {
+              setStreamings(data);
+            }
+          } catch (error) {
+            console.error(`Error fetching ${apiType} data:`, error);
+          }
+        }
+      }
+    
+      getData();
+    }, [movieId]);
 
-    getData();
-
-}, [movieId]);
 
 
     return (
         <div className="detailsContainer">
             <button className="goBackButton" onClick={goBack}>Go back</button>
-            <div className="detailsHero"><HeroSection movie={movie}/></div>
+            <div className="detailsHero"><HeroSection movie={movie} credits={credits} release_dates={releaseDates} streamings={streamings}/></div>
             <div className="detailsVideos"><VideosSection movie={movie}/></div>
         </div>
     );
