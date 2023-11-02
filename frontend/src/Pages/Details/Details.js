@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
 import './Details.css';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { fetchData } from "../../Components/FetchFunctions/fetchs";
 import HeroSection from '../../Components/DetailsSections/HeroSection/HeroSection';
 import VideosSection from '../../Components/DetailsSections/VideosSection/VideosSection';
-import { fetchData } from "../../Components/FetchFunctions/fetchs";
+import CrewSection from "../../Components/DetailsSections/CrewSection/CrewSection";
 
 
 const Details = () => {
@@ -63,6 +64,7 @@ const Details = () => {
         <div className="detailsContainer">
             <button className="goBackButton" onClick={goBack}>Go back</button>
             <div className="detailsHero"><HeroSection movie={movie} credits={credits} release_dates={releaseDates} streamings={streamings}/></div>
+            <div className="detailsCrew"><CrewSection movie={movie}/></div>
             <div className="detailsVideos"><VideosSection movie={movie}/></div>
         </div>
     );

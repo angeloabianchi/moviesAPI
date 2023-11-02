@@ -189,27 +189,3 @@
         opacity: 100%;
     }
 }
-
-/*  @keyframes hover-card-animation-in {
-    from {
-        top: 0%;
-        left: 0%;
-    }
-
-    to {
-        top: -2%;
-        left: -5%;
-    }
-}
-
- @keyframes hover-card-animation-out {
-    from {
-        top: -2%;
-        left: -5%;
-    }
-
-    to {
-        top: 0%;
-        left: 0%;
-    }
-} */

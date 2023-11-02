@@ -106,20 +106,21 @@
 
 .heroFooterZone div {
     opacity: 30%;
-    transition: opacity 1s;
+    transition: opacity 1s,box-shadow 500ms;
 }
 
 .heroStreamingZone {
-
+    width: 15%;
 }
 
 .channelLinks {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
-.streamingCard {
-    padding-right: 5px;
+.streamingCard:hover {
+    box-shadow: 0px 0px 25px 2px rgb(249, 188, 8);
 }
 
 .heroCredits p {
@@ -137,6 +138,6 @@
     opacity: 100%;
 }
 
-.detailsHeroSection:hover > .heroCredits p {
+.detailsHeroSection:hover > .heroFooterZone p {
     background-color: rgba(0, 0, 0, 0.5);
 }

@@ -4,6 +4,7 @@ import Home from './Pages/Home/Home';
 import Movies from './Pages/Movies/Movies';
 import NavBar from './Components/NavBar/NavBar';
 import Details from './Pages/Details/Details';
+import TvShow from './Pages/TvShow/TvShow'
 import {
   BrowserRouter as Router,
   Route,
@@ -31,6 +32,7 @@ const App = () => {
               <Route exact path="/" element={<Home/>} />
               <Route exact path="/movies" element={<Movies searchInput={searchInput} setSearchInput={setSearchInput} />} />
               <Route path="/movie/:id" element={<Details />} />
+              <Route exact path="/tvshow" element={<TvShow />} />
               {/* <Route path="/movies" render={props => <Movies/>}/> */}
               {/* <Navigate to="/" /> */}
             </Routes>

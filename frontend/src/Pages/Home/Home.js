@@ -50,9 +50,9 @@ const Home = () => {
                                     </span>
                                 </Link>
                             </div>
-                            <div className="ctaButtons">
-                                <Link to="/tvshow" className="link">
-                                    <span className="neon">
+                            <div className="ctaButtonsDisabled">
+                                <Link to="/tvshow" className="link" disabled>
+                                    <span className="neonDisabled">
                                         TVS
                                         <span className="blinkingNeonTv">H</span>
                                         OW
